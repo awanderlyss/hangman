@@ -23,7 +23,7 @@ $(function(){
             letterArr[i] = userWord[i];
             // Create a div el w/ 2 els p & span
             let letterHolderDiv = $(`<div class="letterHolder">
-                <p class="letter">${userWord[i]}</p><span></span>
+                <p class="letter">${userWord[i]}</p><div class="dash"></div>
                 </div>`);
             // Append letterHolderDiv to the wordFieldDiv
             wordFieldDiv.append(letterHolderDiv);
