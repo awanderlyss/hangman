@@ -9,19 +9,17 @@ $(function(){
     let button = $('button');
     // Creates an array with the letters of the alphabet
     let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    let span = $('<span></span>');
+    let guessCount = 0;
 
     // Create letterholder based on length of word
     function createLetterHolders(userWord) {
         for(let i = 0; i < userWord.length; i++) {
             // Store each letter in letterArr
             letterArr.push(userWord[i]);
-            // Create a div el w/ 2 els p & span
-            let letterHolderDiv = $(`<div class="letterHolder">
+            // Append div with 2 els, p & div to the wordFieldDiv
+            wordFieldDiv.append(`<div class="letterHolder">
                 <p class="letter">${userWord[i]}</p><div class="dash"></div>
                 </div>`);
-            // Append letterHolderDiv to the wordFieldDiv
-            wordFieldDiv.append(letterHolderDiv);
         }
     }
 
@@ -29,8 +27,11 @@ $(function(){
     function createAlphabetBoard(){
         userInputDiv.html("");
         for(let i in alphabet) {
-            span = $('<span></span>');
+            let span = $('<span></span>');
             span.text(alphabet[i].toUpperCase());
+            if(alphabet.indexOf(alphabet[i]) === 13) {
+                userInputDiv.append('<br>');
+            }
             userInputDiv.append(span);
         }
     }
@@ -41,25 +42,24 @@ $(function(){
         if (!gameStarted){
             gameStarted = !gameStarted;
             userWord = $('input[name=word]').val().toUpperCase();
-            // Change the text value of the button
 
             createLetterHolders(userWord);
             createAlphabetBoard();
         }
     });
-
+    // Add an onclick function to the span that is dynamically created
     $(document).on('click', 'span', (function(){
+        // userGuess is equal to the span.text that is clicked on
+
         let userGuess = $(this).text();
         for(let i = 0; i < letterArr.length; i++) {
             if(userGuess === letterArr[i]) {
                 let selected = $(`.letter`).eq(i);
                 selected.css("color", "black");
-                console.log(selected);
-                console.log("The Same!");
             }
-            else {
-                console.log("Guess Again!");
-            }
+
         }
+        $(this).css("background-color", "white");
+        console.log(guessCount);
     }));
 });
