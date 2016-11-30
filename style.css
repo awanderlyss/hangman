@@ -13,6 +13,16 @@ h1 {
     margin: 0 auto;
 }
 
+#beginGame {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+}
+
+#input {
+    display: none;
+}
+
 p.instructions {
     margin: 0 auto;
 }

@@ -4,9 +4,11 @@ $(function(){
     let inputWord;
     let correctGuessArr = [];
     let wordField = $('#wordField');
-    let input = $('#userInput');
+    let input = $('#input');
     let gameBoard = $('#gameBoard');
+    let beginGame = $('#beginGame')
     let alphabetBoard = $('#alphabetBoard');
+    let inputField = $('input[name=word]');
     let gameStarted = false;
     let button = $('button');
     let guessAmt = 5;
@@ -23,8 +25,6 @@ $(function(){
 
     // Create alphabet board for user letter guess
     function createAlphabetBoard(){
-        // Clear current elements in div
-        input.html("");
         // Creates an array with the letters of the alphabet
         let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
         for(let i in alphabet) {
@@ -54,10 +54,26 @@ $(function(){
     // Onclick set inputWord to input value, then clear field
     button.click(function(){
         // Set inputWord equal to the value of user input
-        inputWord = $('input[name=word]').val().toUpperCase().split('');
+        if($(this).attr('id') === 'start'){
+            beginGame.css("display", "none");
+            input.css("display", "block");
+        }
+        else {
+            inputWord = inputField.val().toUpperCase().split('');
+            if(inputWord.length !== 0){
+                input.css("display", "none");
+                createLetterHolders(inputWord);
+                createAlphabetBoard();
+            }
+            else {
+                inputField.val('*Please enter a valid word!');
+                inputField.css("border", "1px red solid");
+            }
+        }
+    });
 
-        createLetterHolders(inputWord);
-        createAlphabetBoard();
+    inputField.click(function(){
+        inputField.val("");
     });
 
     // Add an onclick function to the span that is dynamically created
