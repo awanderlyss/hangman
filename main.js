@@ -1,26 +1,22 @@
 // Shorthand for $( document ).ready()
 $(function(){
 
-    let userWord;
-    let letterArr = [];
+    let inputWord;
     let correctGuessArr = [];
-    let wordFieldDiv = $('#wordField');
-    let userInputDiv = $('#userInput');
+    let wordField = $('#wordField');
+    let input = $('#userInput');
     let gameBoard = $('#gameBoard');
+    let alphabetBoard = $('#alphabetBoard');
     let gameStarted = false;
     let button = $('button');
-    // Creates an array with the letters of the alphabet
-    let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    let guessCounter = 0;
+    let guessAmt = 5;
 
     // Create letterholder based on length of word
-    function createLetterHolders(userWord) {
-        for(let i = 0; i < userWord.length; i++) {
-            // Store each letter in letterArr
-            letterArr.push(userWord[i]);
-            // Append div with 2 els, p & div to the wordFieldDiv
-            wordFieldDiv.append(`<div class="letterHolder">
-                <p class="letter">${userWord[i]}</p><div class="dash"></div>
+    function createLetterHolders(inputWord) {
+        for(let i = 0; i < inputWord.length; i++) {
+            // Append div with 2 els, p & div to the wordField
+            wordField.append(`<div class="letterHolder">
+                <p class="letter">${inputWord[i]}</p><div class="dash"></div>
                 </div>`);
         }
     }
@@ -28,37 +24,39 @@ $(function(){
     // Create alphabet board for user letter guess
     function createAlphabetBoard(){
         // Clear current elements in div
-        userInputDiv.html("");
+        input.html("");
+        // Creates an array with the letters of the alphabet
+        let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
         for(let i in alphabet) {
             let span = $('<span></span>');
             span.text(alphabet[i].toUpperCase());
-            userInputDiv.append(span);
+            alphabetBoard.append(span);
         }
     }
 
     // Check userGuess against inputWord
     function checkUserGuess(userGuess){
-        // If userGuess is in the userWord run loop
-        if(userWord.indexOf(userGuess)!== -1){
-            for(let i in letterArr) {
-                if(userGuess === letterArr[i]) {
-                    correctGuessArr.push(letterArr[i]);
+        // If userGuess is in the inputWord run loop
+        if(inputWord.indexOf(userGuess)!== -1){
+            for(let i in inputWord) {
+                if(userGuess === inputWord[i]) {
+                    correctGuessArr.push(inputWord[i]);
                     $(`.letter`).eq(i).css("color", "black");
                 }
             }
         }
-        // Else add 1 to guessCounter
+        // Else subtract 1 from guessAmt
         else {
-            guessCounter++;
+            guessAmt--;
         }
     }
 
-    // Onclick set userWord to input value, then clear field
+    // Onclick set inputWord to input value, then clear field
     button.click(function(){
-        // Set userWord equal to the value of user input
-        userWord = $('input[name=word]').val().toUpperCase();
+        // Set inputWord equal to the value of user input
+        inputWord = $('input[name=word]').val().toUpperCase().split('');
 
-        createLetterHolders(userWord);
+        createLetterHolders(inputWord);
         createAlphabetBoard();
     });
 
@@ -67,13 +65,18 @@ $(function(){
         checkUserGuess($(this).text());
         // Remove span after its been clicked on
         $(this).remove();
-        console.log(guessCounter);
+        console.log(guessAmt);
         console.log(correctGuessArr);
-        if((guessCounter === 5) || (correctGuessArr.length === letterArr.length)) {
-            prompt("Game Over!");
+
+        // When guessCounter = 0 game is over game is erased, img displayed
+        if(guessAmt === 0) {
+            gameBoard.html("");
+            gameBoard.append($('<img src="img/gameover.png" class="gameover">'));
 
         }
+
     }));
+
 
 
 });

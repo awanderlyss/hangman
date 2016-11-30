@@ -8,12 +8,27 @@ h1 {
     margin: 0;
 }
 
+#gameBoard {
+    width: 80%;
+    margin: 0 auto;
+}
+
+p.instructions {
+    margin: 0 auto;
+}
+
 span {
     padding: .125em .375em;
     margin: .125em;
     background-color: black;
     color: white;
     cursor: pointer;
+}
+
+img {
+    width: 40%;
+    height: 40%:
+    margin: 0 auto;
 }
 
 #wordField {

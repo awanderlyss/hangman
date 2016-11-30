@@ -12,12 +12,24 @@
     </head>
     <body>
         <h1>To be named...</h1>
+
         <div id="gameBoard">
-            <div id="userInput">
+            <div id="beginGame">
+                <p class="instructions">
+                    Choose one person to be the executioner. That person will think of a word
+                    then input the word and click "Submit Word" (dont let the other player
+                    watch). The second player will start guessing letters until
+                    they can either solve the word or all six body parts are on
+                    the gallows.
+                </p>
+                <button type="button" class="startGame" id="start">Start Game</button>
+            </div>
+            <div id="input">
                 <input type="text" name="word" id="word"/>
-                <button type="button" class="userWord">Submit Word</button>
+                <button type="button" class="inputWord">Submit Word</button>
             </div>
             <div id="wordField"></div>
+            <div id="alphabetBoard"></div>
         </div>
     </body>
 </html>
