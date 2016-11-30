@@ -3,13 +3,15 @@ $(function(){
 
     let userWord;
     let letterArr = [];
+    let correctGuessArr = [];
     let wordFieldDiv = $('#wordField');
     let userInputDiv = $('#userInput');
+    let gameBoard = $('#gameBoard');
     let gameStarted = false;
     let button = $('button');
     // Creates an array with the letters of the alphabet
     let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    let guessCount = 0;
+    let guessCounter = 0;
 
     // Create letterholder based on length of word
     function createLetterHolders(userWord) {
@@ -25,41 +27,53 @@ $(function(){
 
     // Create alphabet board for user letter guess
     function createAlphabetBoard(){
+        // Clear current elements in div
         userInputDiv.html("");
         for(let i in alphabet) {
             let span = $('<span></span>');
             span.text(alphabet[i].toUpperCase());
-            if(alphabet.indexOf(alphabet[i]) === 13) {
-                userInputDiv.append('<br>');
-            }
             userInputDiv.append(span);
+        }
+    }
+
+    // Check userGuess against inputWord
+    function checkUserGuess(userGuess){
+        // If userGuess is in the userWord run loop
+        if(userWord.indexOf(userGuess)!== -1){
+            for(let i in letterArr) {
+                if(userGuess === letterArr[i]) {
+                    correctGuessArr.push(letterArr[i]);
+                    $(`.letter`).eq(i).css("color", "black");
+                }
+            }
+        }
+        // Else add 1 to guessCounter
+        else {
+            guessCounter++;
         }
     }
 
     // Onclick set userWord to input value, then clear field
     button.click(function(){
-        // Only runs code once to initiate the game
-        if (!gameStarted){
-            gameStarted = !gameStarted;
-            userWord = $('input[name=word]').val().toUpperCase();
+        // Set userWord equal to the value of user input
+        userWord = $('input[name=word]').val().toUpperCase();
 
-            createLetterHolders(userWord);
-            createAlphabetBoard();
-        }
+        createLetterHolders(userWord);
+        createAlphabetBoard();
     });
+
     // Add an onclick function to the span that is dynamically created
     $(document).on('click', 'span', (function(){
-        // userGuess is equal to the span.text that is clicked on
-
-        let userGuess = $(this).text();
-        for(let i = 0; i < letterArr.length; i++) {
-            if(userGuess === letterArr[i]) {
-                let selected = $(`.letter`).eq(i);
-                selected.css("color", "black");
-            }
+        checkUserGuess($(this).text());
+        // Remove span after its been clicked on
+        $(this).remove();
+        console.log(guessCounter);
+        console.log(correctGuessArr);
+        if((guessCounter === 5) || (correctGuessArr.length === letterArr.length)) {
+            prompt("Game Over!");
 
         }
-        $(this).css("background-color", "white");
-        console.log(guessCount);
     }));
+
+
 });
