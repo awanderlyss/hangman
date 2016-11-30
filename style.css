@@ -8,6 +8,14 @@ h1 {
     margin: 0;
 }
 
+span {
+    padding: .125em .375em;
+    margin: .125em;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
 #wordField {
     display: flex;
     flex-direction: row;

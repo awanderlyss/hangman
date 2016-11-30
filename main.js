@@ -9,20 +9,7 @@ $(function(){
     let button = $('button');
     // Creates an array with the letters of the alphabet
     let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    // Onclick set userWord to input value, then clear field
-    button.click(function(){
-        // Only runs code once to initiate the game
-        if (!gameStarted){
-            gameStarted = !gameStarted;
-            userWord = $('input[name=word]').val().toUpperCase();
-            // Change the text value of the button
-            button.text('Submit Letter');
-
-            createLetterHolders(userWord);
-            createAlphabetBoard();
-        }
-
-    });
+    let span = $('<span></span>');
 
     // Create letterholder based on length of word
     function createLetterHolders(userWord) {
@@ -42,10 +29,37 @@ $(function(){
     function createAlphabetBoard(){
         userInputDiv.html("");
         for(let i in alphabet) {
-            let span = $('<span></span>');
+            span = $('<span></span>');
             span.text(alphabet[i].toUpperCase());
             userInputDiv.append(span);
         }
     }
 
+    // Onclick set userWord to input value, then clear field
+    button.click(function(){
+        // Only runs code once to initiate the game
+        if (!gameStarted){
+            gameStarted = !gameStarted;
+            userWord = $('input[name=word]').val().toUpperCase();
+            // Change the text value of the button
+
+            createLetterHolders(userWord);
+            createAlphabetBoard();
+        }
+    });
+
+    $(document).on('click', 'span', (function(){
+        let userGuess = $(this).text();
+        for(let i = 0; i < letterArr.length; i++) {
+            if(userGuess === letterArr[i]) {
+                let selected = $(`.letter`).eq(i);
+                selected.css("color", "black");
+                console.log(selected);
+                console.log("The Same!");
+            }
+            else {
+                console.log("Guess Again!");
+            }
+        }
+    }));
 });
