@@ -12,7 +12,10 @@ $(function(){
     input.hide();
 
     $('button').click(function(){
-        
+        if($(this).attr('id') === 'start'){
+            initialStart.hide();
+            input.show();
+        }
     });// end -> function, button click
 
 });// end document.ready

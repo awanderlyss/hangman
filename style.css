@@ -39,6 +39,11 @@ p {
     font-size: 24px;
 }
 
+input {
+    box-shadow: 0 0 5px grey;
+    border-radius: 5px;
+}
+
 #gameBoard {
     width: 100%
 }
