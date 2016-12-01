@@ -1,54 +1,45 @@
-html {
-    width: 100%;
-    height: 100%;
+header, main, aside, section, div, footer{
+    border: 2px solid;
 }
 
-body, button, input {
+html,
+body {
     font-family: 'Amatic SC', cursive;
-    font-size: 32px;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
     text-align: center;
-    letter-spacing: .03125em;
 }
 
-h1 {
-    margin: .75em 0 .5em 0;
+header {
+  flex: 0 1 auto;
 }
+
+main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+aside {
+    flex-wrap: wrap;
+    width: 25%;
+    overflow: auto;
+
+}
+
+footer {
+  flex: 0 1 40px;
+}
+
+h1 {}
+
+p {}
 
 #gameBoard {
-    width: 90%;
-    margin: 0 auto;
+    width: 100%
 }
-
-#beginGame {
-    margin: 0 auto;
-    width: 80%;
-}
-
-button, input {
-    font-size: .75em;
-    border-radius: 5px;
-    margin: 25px;
-}
-
-input {
-    background-color: rgba(0, 0, 0, .2);
-    width: 200px;
-    height: 1em;
-}
-
-p.instructions {
-    margin: 0 auto;
-    width: 75%;
-}
-
-span {
-    padding: .125em .375em;
-    margin: .125em;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-}
-
 
 #wordField {
     display: flex;
@@ -60,21 +51,21 @@ span {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    width: 1.25em;
-    height: 2.375em;
-    padding: .125em;
-    margin: .25em;
+    align-items: center;
+    height: 80px;
+    margin: 5px;
+    padding: 5px;
+    width: 40px;
 }
 
 .letter {
-    font-size: 2em;
+    font-size: 50px;
     margin: 0;
 }
 
 .dash {
-    background-color: rgba(0, 0, 0, 0.7);
-    width: 1.25em;
-    height: .1em;
-    margin: 0;
-    border-radius: .375em;
+    width: 40px;
+    height: 2px;
+    border-radius: 5px;
+    background-color: black;
 }

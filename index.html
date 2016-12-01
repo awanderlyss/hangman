@@ -11,30 +11,38 @@
         <script src="main2.js"></script>
     </head>
     <body>
-        <h1>To be named...</h1>
+        <header>
+            <h1>To be named...</h1>
+        </header>
 
-        <div id="gameBoard">
-            <div id="beginGame">
-                <p class="instructions">
-                    Choose one person to be the executioner. That person will think of a word
-                    then input the word and click "Submit Word" (dont let the other player
-                    watch). The second player will start guessing letters until
-                    they can either solve the word or all six body parts are on
-                    the gallows.
-                </p>
-                <button type="button" class="startGame" id="start">Start Game</button>
+        <main>
+            <aside id="alphabetBoard"><h3>Pick a letter:</h3></aside>
+            <div id="gameBoard">
+                <section id="initalStart">
+                    <p class="instructions">
+                        Choose one person to be the executioner. That person will think of a word
+                        then input the word and click "Submit Word" (dont let the other player
+                        watch). The second player will start guessing letters until
+                        they can either solve the word or all six body parts are on
+                        the gallows.
+                    </p>
+                    <button type="button" class="startGame" id="start">Start Game</button>
+                </section>
+                <section id="input">
+                    <p class="instructions">
+                        Player ONE enter a word longer than 3 letters, </br>no spaces, and
+                        no special characters (, ! & "").
+                    </p>
+                    <input type="text" name="word" id="word"/>
+                    <button type="button" class="inputWord">Submit Word</button>
+                </section>
+                <section id="hangman"></section>
+                <section id="wordField"></section>
             </div>
-            <div id="input">
-                <p class="instructions">
-                    Player ONE enter a word longer than 3 letters, </br>no spaces, and
-                    no special characters (, ! & "").
-                </p>
-                <input type="text" name="word" id="word"/>
-                <button type="button" class="inputWord">Submit Word</button>
-            </div>
-            <div id="hangman"></div>
-            <div id="wordField"></div>
-            <div id="alphabetBoard"></div>
-        </div>
+            <aside id="guessBoard"><h3>Incorrect letters:</h3></aside>
+        </main>
+        <footer>
+            <p>Created by Alyssa</p>
+        </footer>
     </body>
 </html>
