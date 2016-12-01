@@ -5,13 +5,16 @@ $(function(){
     let correctGuessArr = [];
     let wordField = $('#wordField');
     let input = $('#input');
+    // Hide the input div until called to show
+    input.hide();
+
     let gameBoard = $('#gameBoard');
     let beginGame = $('#beginGame');
     let alphabetBoard = $('#alphabetBoard');
     let inputField = $('input[name=word]');
-    let hangmanImg = $('#hangmanImg');
+    let hangman = $('#hangman');
     let gameStarted = false;
-    let guessAmt = 5;
+    let guessAmt = 6;
 
     // Create letterholder based on length of word
     function createLetterHolders(inputWord) {
@@ -20,6 +23,7 @@ $(function(){
             wordField.append(`<div class="letterHolder">
                 <p class="letter">${inputWord[i]}</p><div class="dash"></div>
                 </div>`);
+            $('.letter').hide();
         }
     }
 
@@ -41,7 +45,7 @@ $(function(){
             for(let i in inputWord) {
                 if(userGuess === inputWord[i]) {
                     correctGuessArr.push(inputWord[i]);
-                    $(`.letter`).eq(i).css("color", "black");
+                    $('.letter').eq(i).show();
                 }
             }
         }
@@ -51,17 +55,40 @@ $(function(){
         }
     }
 
+    function checkEndGame(guessAmt, correctGuessArr){
+        // When guessCounter = 0 game is over gameBoard is erased
+        if(guessAmt === 0) {
+            for(let i = 0; i < inputWord.length; i++){
+                console.log($('.letter').css('color') !== 'black');
+                // if ($('.letter').css('color') === 'transparent') {
+                //     $('.letter').css("color", "black");
+                //     $('.letterHolder').css("border", "1px dash red");
+                // }
+            }
+            $('p.instructions').html("It looks like you were defeated by Player 1!");
+        }
+
+        else if(correctGuessArr.length === inputWord.length) {
+            $('p.instructions').html("It looks like Player 2 has defeated you!");
+        }
+
+        alphabetBoard.html('');
+        beginGame.show();
+        $('#start').html("Start New Game");
+    }
+
     // Onclick set inputWord to input value, then clear field
     $('button').click(function(){
         // Set inputWord equal to the value of user input
+        wordField.html('');
         if($(this).attr('id') === 'start'){
-            beginGame.css("display", "none");
-            input.css("display", "block");
+            beginGame.hide();
+            input.show();
         }
         else {
             inputWord = inputField.val().toUpperCase().split('');
             if(inputWord.length !== 0){
-                input.css("display", "none");
+                input.hide();
                 inputField.val("");
                 createLetterHolders(inputWord);
                 createAlphabetBoard();
@@ -75,6 +102,7 @@ $(function(){
 
     inputField.click(function(){
         inputField.val("");
+        inputField.css("border", "1px black solid");
     });
 
     // Add an onclick function to the span that is dynamically created
@@ -84,16 +112,6 @@ $(function(){
         $(this).remove();
         console.log(guessAmt);
         console.log(correctGuessArr);
-
-        // When guessCounter = 0 game is over game is erased, img displayed
-        if(guessAmt === 0) {
-            alphabetBoard.html("");
-            beginGame.css("display", "block");
-            $('p').text("It looks like you were defeated by Player 1!");
-            $('#start').text("Start New Game");
-            hangmanImg.append($('<img src="img/gameover.png" class="gameover">'));
-
-        }
 
     }));
 
