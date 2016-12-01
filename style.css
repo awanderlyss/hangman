@@ -1,14 +1,14 @@
-header, main, aside, section, div, footer{
+/*header, main, aside, section, div, footer{
     border: 2px solid;
-}
+}*/
 
 html,
 body {
+    display: flex;
+    flex-flow: column;
     font-family: 'Amatic SC', cursive;
     height: 100%;
     margin: 0;
-    display: flex;
-    flex-flow: column;
     text-align: center;
 }
 
@@ -35,10 +35,17 @@ footer {
 
 h1 {}
 
-p {}
+p {
+    font-size: 24px;
+}
 
 #gameBoard {
     width: 100%
+}
+
+#initialStart {
+    width: 80%;
+    margin: 0 auto;
 }
 
 #wordField {
