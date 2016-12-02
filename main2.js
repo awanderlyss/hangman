@@ -1,6 +1,8 @@
 // Shorthand for $( document ).ready()
 $(function(){
     // Declare variables
+    let inputWord;
+    let guessBank = 6;
     let alphabetBoard = $('#alphabetBoard');
     let guessBoard = $('#guessBoard');
     let initialStart = $('#initialStart');
@@ -8,7 +10,7 @@ $(function(){
     let inputField = $('input[name=word]');
     let wordField = $('#wordField');
     let aside = $('aside');
-    let inputWord;
+    let gameStarted = false;
 
     // Hide elements until needed
     aside.hide();
@@ -51,6 +53,15 @@ $(function(){
         }// end if statement
     }// end createGameBoard func
 
+    // Check userGuess against inputWord arr
+    function checkUserGuess(letterPicked){
+        if(!gameStarted){
+            for(let i in inputWord){
+                if(letterPicked === inputWord[i]) {
+                    $('.letter').eq(i).show();
+        }}}// end --> if sta, for loop, if sta
+    }// end checkUserGuess func
+
     $('button').click(function(){
         if($(this).attr('id') === 'start'){
             initialStart.hide();
@@ -59,12 +70,13 @@ $(function(){
         else {
             createGameBoard();
         }// end else statement
-    });// end -> function, button click
+    });// end -> func, onclick
 
+    // Add onclick func to div that is dynamic created
     $(document).on('click', '#alphabetBoard div', (function(){
-        let letterPicked = $(this).text();
+        checkUserGuess($('p', this).text());
         guessBoard.append($(this));
-
-    }));
+        console.log("Guess Bank:", guessBank)
+    }));// end --> func, func, onclick
 
 });// end document.ready
