@@ -3,10 +3,12 @@ $(function(){
     // Declare variables
     let inputWord;
     let guessBank = 6;
+    let correctBank = 0;
     let alphabetBoard = $('#alphabetBoard');
     let guessBoard = $('#guessBoard');
     let initialStart = $('#initialStart');
     let input = $('#input');
+    let hangman = $('#hangman');
     let inputField = $('input[name=word]');
     let wordField = $('#wordField');
     let aside = $('aside');
@@ -59,6 +61,7 @@ $(function(){
             for(let i in inputWord){
                 if(letterPicked === inputWord[i]) {
                     $('.letter').eq(i).show();
+                    correctBank++;
             }}// end --> if sta, for loop
             divClicked.remove();
         }// if sta
@@ -67,6 +70,21 @@ $(function(){
             guessBoard.append(divClicked);
         }//end else sta
     }// end checkUserGuess func
+
+    //Check to see if the game is over, declare a winner
+    function checkEndGame(guessBank, correctBank) {
+        if (guessBank === 0){
+            hangman.append('<p>Player 1 has defeated Player 2!</p>');
+            $('.letter').show();
+            hangman.append('<button type="button" id="startNewGame">Start New Game</button>');
+        }// end if sta
+        else if (correctBank === inputWord.length){
+            hangman.append('<p>Player 2 has defeated Player 1!</p>');
+            hangman.append('<button type="button" id="startNewGame">Start New Game</button>');
+        }// end else if sta
+        // Append a button to hangman div
+
+    }//end checkEndGame func
 
     $('button').click(function(){
         if($(this).attr('id') === 'start'){
@@ -82,7 +100,8 @@ $(function(){
     $(document).on('click', '#alphabetBoard div', (function(){
         checkUserGuess($('p', this).text(), $(this));
 
-        console.log("Guess Bank:", guessBank)
+        checkEndGame(guessBank, correctBank);
+
     }));// end --> func, func, onclick
 
 });// end document.ready

@@ -21,11 +21,13 @@ main {
     flex: 1 1 auto;
     display: flex;
     flex-direction: row;
+    overflow: scroll;
 }
 
 aside {
     width: 30%;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
@@ -35,7 +37,7 @@ footer {
 footer p {
     font-size: 16px;
     margin: 0;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 h1 {
@@ -75,12 +77,14 @@ button {
     font-size: 20px;
     font-family: inherit;
     letter-spacing: inherit;
+    margin-top: 20px;
 }
 
 #alphabetBoard, #guessBoard {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    overflow: scroll;
 }
 
 .alphabet {
@@ -100,9 +104,6 @@ button {
     align-self: center;
 }
 
-.instructions {
-    margin: 20px;
-}
 #gameBoard {
     width: 100%;
 }
@@ -125,7 +126,6 @@ button {
     align-items: center;
     height: 80px;
     margin: 5px;
-    padding: 5px;
     width: 40px;
 }
 
