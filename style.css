@@ -26,7 +26,6 @@ main {
 aside {
     width: 30%;
     overflow: auto;
-
 }
 
 footer {
@@ -77,13 +76,13 @@ button {
     letter-spacing: inherit;
 }
 
-#alphabetBoard {
+#alphabetBoard, #guessBoard {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
 }
 
-#alphabetBoard div {
+.alphabet {
     background-color: #4CAF50;
     border: none;
     border-radius: 4px;
@@ -96,7 +95,7 @@ button {
     height: 50px;
 }
 
-#alphabetBoard div p {
+.alphabet p {
     align-self: center;
 }
 
