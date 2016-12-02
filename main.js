@@ -24,8 +24,8 @@ $(function(){
                 <p class="letter">${inputWord[i]}</p><div class="dash"></div>
                 </div>`);
             $('.letter').hide();
-        }
-    }
+        }// for loop
+    }// end createLetterHolders func
 
     // Create alphabet board for user letter guess
     function createAlphabetBoard(){

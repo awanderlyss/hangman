@@ -10,6 +10,7 @@ body {
     height: 100%;
     margin: 0;
     text-align: center;
+    letter-spacing: 1px;
 }
 
 header {
@@ -36,12 +37,31 @@ footer {
 h1 {}
 
 p {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 input {
-    box-shadow: 0 0 5px grey;
-    border-radius: 5px;
+    width: 20%;
+    margin: 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: inherit;
+    letter-spacing: inherit;
+}
+
+button {
+    width: 10%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: inherit;
+    letter-spacing: inherit;
 }
 
 #gameBoard {
