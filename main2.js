@@ -6,11 +6,12 @@ $(function(){
     let initialStart = $('#initialStart');
     let input = $('#input');
     let inputField = $('input[name=word]');
+    let wordField = $('#wordField');
+    let aside = $('aside');
     let inputWord;
 
     // Hide elements until needed
-    alphabetBoard.hide();
-    guessBoard.hide();
+    aside.hide();
     input.hide();
 
     // Create gameBoard once user submits a value word
@@ -33,6 +34,7 @@ $(function(){
                 <p class="letter">${inputWord[i]}</p><div class="dash"></div>
                 </div>`);
             $('.letter').hide();
+
         }// for loop
     }// end createLetterHolders func
 
@@ -41,9 +43,11 @@ $(function(){
         // Creates an array with the letters of the alphabet
         let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
         for(let i in alphabet) {
-            let span = $('<span></span>');
-            span.text(alphabet[i].toUpperCase());
-            alphabetBoard.append(span);
+            alphabetBoard.append($(`<div>
+                <p>${alphabet[i].toUpperCase()}</p>
+                </div>`));
+            // Show the aside els
+            aside.show();
         }// for loop func
     }// end createAlphabetBoard
 
