@@ -54,12 +54,18 @@ $(function(){
     }// end createGameBoard func
 
     // Check userGuess against inputWord arr
-    function checkUserGuess(letterPicked){
-        if(!gameStarted){
+    function checkUserGuess(letterPicked, divClicked){
+        if(inputWord.indexOf(letterPicked)!== -1){
             for(let i in inputWord){
                 if(letterPicked === inputWord[i]) {
                     $('.letter').eq(i).show();
-        }}}// end --> if sta, for loop, if sta
+            }}// end --> if sta, for loop
+            divClicked.remove();
+        }// if sta
+        else {
+            guessBank--;
+            guessBoard.append(divClicked);
+        }//end else sta
     }// end checkUserGuess func
 
     $('button').click(function(){
@@ -74,8 +80,8 @@ $(function(){
 
     // Add onclick func to div that is dynamic created
     $(document).on('click', '#alphabetBoard div', (function(){
-        checkUserGuess($('p', this).text());
-        guessBoard.append($(this));
+        checkUserGuess($('p', this).text(), $(this));
+
         console.log("Guess Bank:", guessBank)
     }));// end --> func, func, onclick
 
