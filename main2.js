@@ -22,23 +22,22 @@ $(function(){
         '<img src="img/player-two-win.png">'
     ];
 
-
-
     function setup(){
-        //Clear dynamically created els from html
-        wordField.html('');
-        alphabet.html('');
+        if(gameStarted){
+            //Clear dynamically created els from html
+            wordField.html('');
+            alphabet.html('');
 
+            initial.hide();
+            alphabet.hide();
+        }
+        else {
+            input.hide();
+        }
+        guessBank = 6;
+        correctBank = 0;
         hangman.html(gameImgs[6]);
-
-        scoreboard.hide();
-        alphabet.hide();
-        input.hide();
-        initial.show();
-
     }
-
-    setup();
 
     // Create letterholder based on length of word
     function createLetterHolders(inputWord) {
@@ -84,7 +83,6 @@ $(function(){
                     $('.letter').eq(i).show();
                     correctBank++;
             }}// end --> if sta, for loop
-            divClicked.remove();
         }// if sta
         else {
             guessBank--;
@@ -100,20 +98,28 @@ $(function(){
         }// end if sta
         else {
             $('.instructions').eq(0).text('Player 2 has defeated Player 1!');
+            hangman.html(gameImgs[7]);
         }// end else if sta
         alphabet.html('');
-        scoreboard.html('');
+        $('button').eq(0).prop('id', 'startNewGame');
+        initial.show();
         // Append a button to hangman div
 
     }//end checkEndGame func
+
+    // Set up the game board
+    setup();
 
     $('button').click(function(){
         if($(this).attr('id') === 'start'){
             initial.hide();
             input.show();
-            guessBank = 6;
-            correctBank = 0;
+            gameStarted = !gameStarted;
         }// end if sta
+        else if ($(this).attr('id') === 'startNewGame'){
+            setup();
+            input.show();
+        }
         else {
             createGameBoard();
             inputField.val('');
@@ -130,9 +136,8 @@ $(function(){
         }//end if st
     }));// end --> func, func, onclick
 
-    $(document).on('click', '#startNewGame', (function(){
-        setup();
-
-    }));// end --> func, func, onclick
-    console.log()
+    // $(document).on('click', '', (function(){
+    //     setup();
+    //
+    // }));// end --> func, func, onclick
 });// end document.ready

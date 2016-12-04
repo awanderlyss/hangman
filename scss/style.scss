@@ -3,8 +3,9 @@ $font-family: Amatic SC, cursive;
 $center-text: center;
 $btn-bg: #4caf50;
 $btn-font-clr: #fff;
+$bg-color: #f19c79;
 
-@mixin dimensions($width, $height:null){
+@mixin dimensions($width, $height:null) {
   width: $width;
   height: $height;
 }
@@ -37,9 +38,9 @@ body {
   @include font(20px, $font-family, 1px);
   @include flexbox(flex, column);
   @include dimensions(100%, 100%);
+  background-color: $bg-color;
   margin: 0;
   text-align: $center-text;
-
 }
 
 header {
