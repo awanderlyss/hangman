@@ -3,38 +3,39 @@ $(function(){
     // Declare variables
     let inputWord;
 
-    let alphabetBoard = $('#alphabetBoard');
-    let guessBoard = $('#guessBoard');
-    let initialStart = $('#initialStart');
+    let alphabet = $('#alphabet');
+    let scoreboard = $('#scoreboard');
+    let initial = $('#initial');
     let input = $('#input');
     let hangman = $('#hangman');
     let inputField = $('input[name=word]');
     let wordField = $('#wordField');
-    let aside = $('aside');
     let gameStarted = false;
 
-    let hangImgs = {
-        img0: '',
-        img1: 'http://i1166.photobucket.com/albums/q606/KittieLovesBlood/HANGMAN/HangMan3_zpssysavlpz.png',
-        img2: 'http://i1166.photobucket.com/albums/q606/KittieLovesBlood/HANGMAN/HangMan4_zpsmsc9m2gp.png',
-        img3: 'http://i1166.photobucket.com/albums/q606/KittieLovesBlood/HANGMAN/HangMan5_zps9aqumysa.png',
-        img4: 'http://i1166.photobucket.com/albums/q606/KittieLovesBlood/HANGMAN/HangMan6_zpsgx1liibq.png',
-        img5: 'http://i1166.photobucket.com/albums/q606/KittieLovesBlood/HANGMAN/HangMan7_zpssf7uyd12.png',
-        img6: 'http://i1166.photobucket.com/albums/q606/KittieLovesBlood/HANGMAN/HangMan9_zps2xxtp3vl.png'
-    };
+    let gameImgs = ['<img src="img/player-one-win.png">',
+        '<img src="img/img5.png">',
+        '<img src="img/img4.png">',
+        '<img src="img/img3.png">',
+        '<img src="img/img2.png">',
+        '<img src="img/img1.png">',
+        '<img src="img/start.png">',
+        '<img src="img/player-two-win.png">'
+    ];
 
 
 
     function setup(){
         //Clear dynamically created els from html
-        hangman.html('');
         wordField.html('');
-        alphabetBoard.html('');
-        guessBoard.html('');
+        alphabet.html('');
 
-        aside.hide();
+        hangman.html(gameImgs[6]);
+
+        scoreboard.hide();
+        alphabet.hide();
         input.hide();
-        initialStart.show();
+        initial.show();
+
     }
 
     setup();
@@ -42,8 +43,8 @@ $(function(){
     // Create letterholder based on length of word
     function createLetterHolders(inputWord) {
         for(let i = 0; i < inputWord.length; i++) {
-            // Append div with 2 els, p & div to the wordField
-            wordField.append(`<div class="letterHolder">
+            // Append div with 2 els, p & div to the word
+            wordField.append(`<div class="letter-holder">
                 <p class="letter">${inputWord[i]}</p><div class="dash"></div>
                 </div>`);
             $('.letter').hide();
@@ -52,17 +53,15 @@ $(function(){
     }// end createLetterHolders func
 
     // Create alphabet board for user letter guess
-    function createAlphabetBoard(){
+    function createalphabet(){
         // Creates an array with the letters of the alphabet
-        let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        for(let i in alphabet) {
-            alphabetBoard.append($(`<div class="alphabet">
-                <p>${alphabet[i].toUpperCase()}</p>
+        let letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        for(let i in letters) {
+            alphabet.append($(`<div class="alphabet">
+                <p>${letters[i].toUpperCase()}</p>
                 </div>`));
-            // Show the aside els
-            aside.show();
         }// for loop func
-    }// end createAlphabetBoard
+    }// end createalphabet
 
     // Create gameBoard once user submits a value word
     function createGameBoard(){
@@ -72,7 +71,8 @@ $(function(){
         if(inputWord.length > 3){
             input.hide();
             createLetterHolders(inputWord);
-            createAlphabetBoard();
+            createalphabet();
+            alphabet.show();
         }// end if statement
     }// end createGameBoard func
 
@@ -88,30 +88,28 @@ $(function(){
         }// if sta
         else {
             guessBank--;
-            guessBoard.append(divClicked);
+            hangman.html(gameImgs[guessBank]);
         }//end else sta
     }// end checkUserGuess func
 
     //Check to see if the game is over, declare a winner
     function checkEndGame(guessBank) {
         if (guessBank === 0){
-            hangman.append('<p>Player 1 has defeated Player 2!</p>');
+            $('.instructions').eq(0).text('Player 1 has defeated Player 2!');
             $('.letter').show();
         }// end if sta
         else {
-            hangman.append('<p>Player 2 has defeated Player 1!</p>');
+            $('.instructions').eq(0).text('Player 2 has defeated Player 1!');
         }// end else if sta
-        hangman.append('<button type="button" id="startNewGame">Start New Game</button>');
-        alphabetBoard.html('');
-        guessBoard.html('');
-        aside.hide();
+        alphabet.html('');
+        scoreboard.html('');
         // Append a button to hangman div
 
     }//end checkEndGame func
 
     $('button').click(function(){
         if($(this).attr('id') === 'start'){
-            initialStart.hide();
+            initial.hide();
             input.show();
             guessBank = 6;
             correctBank = 0;
@@ -123,7 +121,7 @@ $(function(){
     });// end -> func, onclick
 
     // Add onclick func to div that is dynamic created
-    $(document).on('click', '#alphabetBoard div', (function(){
+    $(document).on('click', '#alphabet div', (function(){
         checkUserGuess($('p', this).text(), $(this));
         console.log("guess", guessBank);
         console.log(correctBank);
@@ -136,5 +134,5 @@ $(function(){
         setup();
 
     }));// end --> func, func, onclick
-
+    console.log()
 });// end document.ready

@@ -1,0 +1,148 @@
+$border-color: #ccc;
+$font-family: Amatic SC, cursive;
+$center-text: center;
+$btn-bg: #4caf50;
+$btn-font-clr: #fff;
+
+@mixin dimensions($width, $height:null){
+  width: $width;
+  height: $height;
+}
+
+@mixin font($font-size, $font-family:null, $letter-spacing:null) {
+  font-size: $font-size;
+  font-family: $font-family;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin flexbox($display, $flex-flow:null, $justify-content:null) {
+  display: $display;
+  flex-flow: $flex-flow;
+  justify-content: $justify-content;
+}
+
+@mixin input-btn($border, $border-radius, $width, $cursor:null, $background-color:null, $color:null) {
+  border: $border;
+  border-radius: $border-radius;
+  width: $width;
+  cursor: $cursor;
+  background-color: $background-color;
+  color: $color;
+  @include font(20px, $font-family, 1px);
+}
+
+
+html,
+body {
+  @include font(20px, $font-family, 1px);
+  @include flexbox(flex, column);
+  @include dimensions(100%, 100%);
+  margin: 0;
+  text-align: $center-text;
+
+}
+
+header {
+  flex: 0 1 auto;
+}
+
+h1 {}
+
+h3 {
+  margin: 10px;
+}
+
+input {
+  @include input-btn(1px solid $border-color, 4px, 25%);
+  box-sizing: border-box;
+  margin: 8px;
+  text-align: $center-text;
+}
+
+button {
+  @include input-btn(0, 4px, 25%, pointer, $btn-bg, $btn-font-clr);
+  margin-bottom: 20px;
+
+}
+
+main {
+  @include dimensions(100%, 100%);
+  @include flexbox(flex, row);
+  flex: 1 1 auto;
+
+  > section {
+    @include dimensions(50%, 100%);
+
+    > section {
+      @include flexbox(flex, column, center);
+      @include dimensions(100%, 50%);
+      align-items: center;
+    }
+  }
+}
+
+
+p {
+  margin: 0;
+}
+
+div {
+  @include dimensions(100%);
+}
+
+#alphabet {
+  @include flexbox(flex, row wrap, center);
+  align-content: center;
+}
+
+.alphabet {
+  @include input-btn(0, 4px, 0, pointer, $btn-bg, $btn-font-clr);
+  @include flexbox(flex, $justify-content:center);
+  @include dimensions(45px, 50px);
+  font-weight: bold;
+  margin: 2.5px;
+
+  p {
+    align-self: center;
+  }
+}
+
+#wordField {
+  @include flexbox(flex, row, center);
+}
+
+.letter-holder {
+  @include flexbox(flex, column, flex-end);
+  @include dimensions(40px, 80px);
+  align-items: center;
+  margin: 5px;
+}
+
+.letter {
+  font-size: 50px;
+  margin: 0;
+}
+
+.dash {
+  @include dimensions(40px, 2px);
+  background-color: black;
+  border-radius: 5px;
+}
+
+.instructions {
+  padding: 20px;
+}
+
+footer {
+  @include flexbox(flex, $justify-content:center);
+  flex: 0 1 40px;
+
+  p {
+    align-self: center;
+    font-size: 16px;
+  }
+}
+
+img {
+  @include dimensions(80%, 80%);
+}
