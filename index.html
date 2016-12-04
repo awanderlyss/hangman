@@ -12,28 +12,30 @@
   </head>
   <body>
     <header>
-      <h1>To be named...</h1>
+      <h1>Hangman</h1>
     </header>
-    <section>
+    <section id="scoreboard">
       <h3>Score Board:</h3>
-      <section id="scoreboard"></section>
     </section>
     <main>
       <section id="gameboard">
         <section id="initial">
+          <p class="instructions"></p>
           <p class="instructions">
-            Choose one person to be the executioner. That person will think of a word
-            then input the word and click "Submit Word" (dont let the other player
-            watch). The second player will start guessing letters until
-            they can either solve the word or all six body parts are on
-            the gallows.
+            <span>Player 1</span> will be the <span>executioner</span>.</span>
+            Think of a word then input the word.<br>
+            <span>Player 2</span> will be the <span>hangee</span>.</span>
+            Start guessing letters until you can either:
+            Solve the word <span>OR</span> you're haning on the gallows.<br>
+            Winner gets 100 points!
           </p>
           <button type="button" id="start">Start Game</button>
         </section>
         <section id="input">
           <p class="instructions">
             Player ONE enter a word longer than 3 letters, </br>no spaces, and
-            no special characters (, ! & "").
+            no special characters ( , ! & "" ).<br>(<span>DONT </span>let Player
+            TWO watch!).
           </p>
           <div>
             <input type="text" name="word" id="word"/>

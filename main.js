@@ -22,6 +22,7 @@ $(function(){
     function setup(){
         if(gameStarted){
             //Clear dynamically created els from html
+            $('.instructions').eq(0).text('');
             wordField.html('');
             alphabet.html('');
             inputField.val('');
@@ -81,6 +82,7 @@ $(function(){
         // Stores the return value for validate func
         let valiadation = validate(inputWord);
         if (valiadation) {
+            inputWord = inputWord.toUpperCase().split('');
             input.hide();
             createLetterHolders(inputWord);
             createalphabet();
@@ -119,6 +121,7 @@ $(function(){
         }// end else if sta
         alphabet.html('');
         $('button').eq(0).prop('id', 'startNewGame');
+        $('.instructions').eq(1).text('');
         initial.show();
     }//end checkEndGame func
 
@@ -144,8 +147,11 @@ $(function(){
     });// end -> func, onclick
 
     // Add onclick func to div that is dynamic created
-    $(document).on('click', '#alphabet div', (function(){
+    $(document).on('click', '.alphabet', (function(){
         checkUserGuess($('p', this).text(), $(this));
+        $(document).off('click', $(this));
+        $(this).removeClass('alphabet');
+        $(this).addClass('clicked');
         if ((guessBank === 0) || (correctBank === inputWord.length)){
             checkEndGame(guessBank);
         }//end if st

@@ -1,10 +1,17 @@
+@font-face {
+  font-family: 'Title Font';
+  src: url('../font/Walk-Around-the-Block.ttf');
+}
+
 $border-color: #ccc;
+$font-title: Title Font, Arial, sans;
 $font-family: Amatic SC, cursive;
 $center-text: center;
-$btn-bg: #4caf50;
+$btn-bg: rgba(117, 185, 190, 1);
 $btn-font-clr: #fff;
 $bg-color: #f19c79;
 $section-bg-color: #f5fbef;
+$bg-img: url('../img/bg-img.jpg');
 
 @mixin dimensions($width, $height:null) {
   width: $width;
@@ -23,6 +30,12 @@ $section-bg-color: #f5fbef;
   justify-content: $justify-content;
 }
 
+@mixin hover($background-color, $box-shadow, $color) {
+  background-color: $background-color;
+  box-shadow: $box-shadow;
+  color: $color;
+}
+
 @mixin input-btn($border, $border-radius, $width, $cursor:null, $background-color:null, $color:null) {
   border: $border;
   border-radius: $border-radius;
@@ -39,7 +52,7 @@ body {
   @include font(20px, $font-family, 1px);
   @include flexbox(flex, column);
   @include dimensions(100%, 100%);
-  background-color: $bg-color;
+  background-image: $bg-img;
   margin: 0;
   text-align: $center-text;
 }
@@ -48,10 +61,14 @@ header {
   flex: 0 1 auto;
 }
 
-h1 {}
+h1 {
+  font-family: $font-title;
+  margin: 10px 0 0 0;
+  font-size: 75px;
+}
 
 h3 {
-  margin: 10px;
+  margin: 0;
 }
 
 input {
@@ -63,29 +80,39 @@ input {
 
 button {
   @include input-btn(0, 4px, 25%, pointer, $btn-bg, $btn-font-clr);
-  margin-bottom: 20px;
+  margin: 10px;
 
+  &:hover {
+    @include hover($btn-font-clr, inset 0 0 10px $btn-bg, $btn-bg);
+  }
 }
 
 main {
   @include dimensions(100%, 100%);
   @include flexbox(flex, row);
   flex: 1 1 auto;
+  padding: 0 15px;
 
   > section {
     @include dimensions(50%, 100%);
 
     > section {
       @include flexbox(flex, column, center);
-      @include dimensions(100%, 50%);
+      @include dimensions(100%, 47.5%);
       align-items: center;
+      background-color: rgba(255, 255, 255, 0.30);
+      border-radius: 5px;
     }
   }
 }
 
-
 p {
   margin: 0;
+}
+
+span {
+  font-size: 26px;
+  font-weight: bold;
 }
 
 div {
@@ -104,6 +131,10 @@ div {
   font-weight: bold;
   margin: 2.5px;
 
+  &:hover {
+    @include hover($btn-font-clr, inset 0px 0px 10px 0px $btn-bg, $btn-bg);
+  }
+
   p {
     align-self: center;
   }
@@ -111,6 +142,7 @@ div {
 
 #wordField {
   @include flexbox(flex, row, center);
+  margin-bottom: 20px;
 }
 
 .letter-holder {
@@ -132,7 +164,10 @@ div {
 }
 
 .instructions {
-  padding: 20px;
+  @include dimensions(100%);
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding: 0 10px;
 }
 
 footer {
@@ -146,5 +181,11 @@ footer {
 }
 
 img {
-  @include dimensions(80%, 80%);
+  margin: 65px 0;
+  padding: 0 10px;
+}
+
+.clicked {
+  @extend .alphabet;
+  @include hover($btn-font-clr, inset 0 0 10px $btn-bg, $btn-bg);
 }
