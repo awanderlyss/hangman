@@ -4,6 +4,7 @@ $center-text: center;
 $btn-bg: #4caf50;
 $btn-font-clr: #fff;
 $bg-color: #f19c79;
+$section-bg-color: #f5fbef;
 
 @mixin dimensions($width, $height:null) {
   width: $width;

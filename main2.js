@@ -2,7 +2,6 @@
 $(function(){
     // Declare variables
     let inputWord;
-
     let alphabet = $('#alphabet');
     let scoreboard = $('#scoreboard');
     let initial = $('#initial');
@@ -11,7 +10,6 @@ $(function(){
     let inputField = $('input[name=word]');
     let wordField = $('#wordField');
     let gameStarted = false;
-
     let gameImgs = ['<img src="img/player-one-win.png">',
         '<img src="img/img5.png">',
         '<img src="img/img4.png">',
@@ -19,17 +17,15 @@ $(function(){
         '<img src="img/img2.png">',
         '<img src="img/img1.png">',
         '<img src="img/start.png">',
-        '<img src="img/player-two-win.png">'
-    ];
+        '<img src="img/player-two-win.png">'];
 
     function setup(){
         if(gameStarted){
             //Clear dynamically created els from html
             wordField.html('');
             alphabet.html('');
-
+            inputField.val('');
             initial.hide();
-            alphabet.hide();
         }
         else {
             input.hide();
@@ -37,6 +33,23 @@ $(function(){
         guessBank = 6;
         correctBank = 0;
         hangman.html(gameImgs[6]);
+        wordField.hide();
+        alphabet.hide();
+    }
+
+    // Validate the user word
+    function validate(inputWord) {
+      if (inputWord.length <=3) {
+          alert("Please enter a longer word!");
+          return false;
+      }
+      else if (!/^[a-zA-Z]*$/g.test(inputWord)) {
+          alert("Please enter valid characters!");
+          return false;
+      }
+      else {
+        return true;
+      }
     }
 
     // Create letterholder based on length of word
@@ -47,7 +60,6 @@ $(function(){
                 <p class="letter">${inputWord[i]}</p><div class="dash"></div>
                 </div>`);
             $('.letter').hide();
-
         }// for loop
     }// end createLetterHolders func
 
@@ -59,20 +71,25 @@ $(function(){
             alphabet.append($(`<div class="alphabet">
                 <p>${letters[i].toUpperCase()}</p>
                 </div>`));
-        }// for loop func
+        }// for loop
     }// end createalphabet
 
     // Create gameBoard once user submits a value word
     function createGameBoard(){
         // Store the value set to uppercase, spilt into arr in var
-        inputWord = inputField.val().toUpperCase().split('');
-        // Test the len of inputWord to check valid
-        if(inputWord.length > 3){
+        inputWord = inputField.val();
+        // Stores the return value for validate func
+        let valiadation = validate(inputWord);
+        if (valiadation) {
             input.hide();
             createLetterHolders(inputWord);
             createalphabet();
             alphabet.show();
-        }// end if statement
+            wordField.show();
+        }
+        else {
+            inputField.val('');
+        }
     }// end createGameBoard func
 
     // Check userGuess against inputWord arr
@@ -103,41 +120,34 @@ $(function(){
         alphabet.html('');
         $('button').eq(0).prop('id', 'startNewGame');
         initial.show();
-        // Append a button to hangman div
-
     }//end checkEndGame func
 
     // Set up the game board
     setup();
 
+    // Button onclick func
     $('button').click(function(){
+        // If button clicked id is equal to start run this
         if($(this).attr('id') === 'start'){
             initial.hide();
             input.show();
             gameStarted = !gameStarted;
         }// end if sta
+        // Else if button clicked id is equal to startNewGame run this
         else if ($(this).attr('id') === 'startNewGame'){
             setup();
             input.show();
-        }
+        }// end else if sta
         else {
             createGameBoard();
-            inputField.val('');
         }// end else sta
     });// end -> func, onclick
 
     // Add onclick func to div that is dynamic created
     $(document).on('click', '#alphabet div', (function(){
         checkUserGuess($('p', this).text(), $(this));
-        console.log("guess", guessBank);
-        console.log(correctBank);
         if ((guessBank === 0) || (correctBank === inputWord.length)){
             checkEndGame(guessBank);
         }//end if st
     }));// end --> func, func, onclick
-
-    // $(document).on('click', '', (function(){
-    //     setup();
-    //
-    // }));// end --> func, func, onclick
 });// end document.ready
