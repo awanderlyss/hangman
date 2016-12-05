@@ -41,7 +41,7 @@
     You will recieve 100 points if you have guessed the word correctly and saved your life.
 
 #### As the Executioner:
-    You will recieve 100 points if your word is not guess and hung the Hangee.
+    You will recieve 100 points if your word is not guessed and hung the Hangee.
 
 # Play Again Screen:
 
