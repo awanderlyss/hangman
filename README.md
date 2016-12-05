@@ -6,6 +6,12 @@ Hangman is a guessing game for two or more players.
 
 <img src="https://cloud.githubusercontent.com/assets/22528201/20892743/5c668adc-badd-11e6-9154-f7e73b59a1d3.png" width="90%"></img>
 
+## Player 1
+    - Will be the executioner. (marked red on the scoreboard)
+
+## Player 2
+    - Will be the hangee. (marked blue on the scoreboard)
+
 
 # Executioner Screen
 
@@ -15,7 +21,7 @@ Hangman is a guessing game for two or more players.
 
 <img src="https://cloud.githubusercontent.com/assets/22528201/20892751/63528120-badd-11e6-9fd6-50f39e838295.png" width="90%"></img>
 
-# Winner / Loser Screen
+# Win / Lose Screen
 
 <img src="https://cloud.githubusercontent.com/assets/22528201/20892755/65d3d08e-badd-11e6-9142-d8ed0b399cf8.png" width="90%"></img>
 
