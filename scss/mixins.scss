@@ -1,0 +1,39 @@
+@mixin dimensions($width, $height:null) {
+  width: $width;
+  height: $height;
+}
+
+@mixin font($font-size, $font-family:null, $letter-spacing:null) {
+  font-size: $font-size;
+  font-family: $font-family;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin flexbox($display, $flex-flow:null, $justify-content:null) {
+  display: $display;
+  flex-flow: $flex-flow;
+  justify-content: $justify-content;
+}
+
+@mixin hover($background-color, $box-shadow, $color) {
+  background-color: $background-color;
+  box-shadow: $box-shadow;
+  color: $color;
+}
+
+@mixin input-btn($border, $border-radius, $width, $cursor:null, $background-color:null, $color:null) {
+  border: $border;
+  border-radius: $border-radius;
+  width: $width;
+  cursor: $cursor;
+  background-color: $background-color;
+  color: $color;
+  @include font(20px, $font-family, 1px);
+}
+
+@mixin player($bdr-color, $font-color) {
+  @include hover($btn-font-clr, inset 0 0 10px $bdr-color, $font-color);
+  font-size: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+}

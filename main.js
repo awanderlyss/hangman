@@ -1,6 +1,8 @@
 // Shorthand for $( document ).ready()
 $(function(){
-    // Declare variables
+/*----------------------------------------------------------------------
+    VARIABLES
+----------------------------------------------------------------------*/
     let inputWord;
     let player1 = 0;
     let player2 = 0;
@@ -23,6 +25,9 @@ $(function(){
         'img/start.png',
         'img/player-two-win.png'];
 
+/*----------------------------------------------------------------------
+    FUNCTIONS
+----------------------------------------------------------------------*/
     function setup(){
         if(gameStarted){
             //Clear dynamically created els from html
@@ -45,17 +50,15 @@ $(function(){
     // Validate the user word
     function validate(inputWord) {
       if (inputWord.length <=3) {
-          alert("Please enter a longer word!");
+          alert("Please enter a word longer than 3 letters!");
           return false;
-      }
-      else if (!/^[a-zA-Z]*$/g.test(inputWord)) {
-          alert("Please enter valid characters!");
+      }else if (!/^[a-zA-Z]*$/g.test(inputWord)) {
+          alert("Please enter only valid characters (a-z and A-Z)!");
           return false;
-      }
-      else {
+      }else {
         return true;
       }
-    }
+    }// end validate func
 
     // Create letterholder based on length of word
     function createLetterHolders(inputWord) {
@@ -69,15 +72,13 @@ $(function(){
     }// end createLetterHolders func
 
     // Create alphabet board for user letter guess
-    function createalphabet(){
+    function createAlphabet(){
         // Creates an array with the letters of the alphabet
         let letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
         for(let i in letters) {
-            alphabet.append($(`<div class="alphabet">
-                <p>${letters[i].toUpperCase()}</p>
-                </div>`));
+            alphabet.append($(`<div class="alphabet"><p>${letters[i].toUpperCase()}</p></div>`));
         }// for loop
-    }// end createalphabet
+    }// end createAlphabet
 
     // Create gameBoard once user submits a value word
     function createGameBoard(){
@@ -89,11 +90,10 @@ $(function(){
             inputWord = inputWord.toUpperCase().split('');
             input.hide();
             createLetterHolders(inputWord);
-            createalphabet();
+            createAlphabet();
             alphabet.show();
             wordField.show();
-        }
-        else {
+        }else {
             inputField.val('');
         }
     }// end createGameBoard func
@@ -122,21 +122,19 @@ $(function(){
                 if(letterPicked === inputWord[i]) {
                     $('.letter').eq(i).show();
                     correctBank++;
-            }}// end --> if sta, for loop
-        }// if sta
-        else {
+            }}
+        }else {
             guessBank--;
             hangman.css('background-image', 'none');
             hangman.css('background-image', `url(${gameImgs[guessBank]})`);
-        }//end else sta
+        }
     }// end checkUserGuess func
 
     // Changes the play score based on the number of games played
     function reverseScore(player1Turn){
         if (player1Turn){
           player1 += 100;
-        }
-        else {
+        }else {
           player2 +=100;
         }
     }
@@ -146,8 +144,7 @@ $(function(){
             $('.instructions').eq(0).text('Player 1 has defeated Player 2! Switch roles, and play again?');
             $('.letter').show();
             reverseScore(!player1Turn);
-        }// end if sta
-        else {
+        }else {
             $('.instructions').eq(0).text('Player 2 has defeated Player 1! Switch roles, and play again?');
             hangman.css('background-image', `url(${gameImgs[7]})`);
             reverseScore(player1Turn);
@@ -158,25 +155,27 @@ $(function(){
         initial.show();
     }//end checkEndGame func
 
-    // Set up the game board
+/*----------------------------------------------------------------------
+    INITIAL GAME SETUP
+----------------------------------------------------------------------*/
     setup();
+    createScoreBoard(gameCount, player1, player2, guessBank);
 
-    // Button onclick func
+/*----------------------------------------------------------------------
+    ONCLICK FUNCTIONS
+----------------------------------------------------------------------*/
     $('button').click(function(){
         // If button clicked id is equal to start run this
         if($(this).attr('id') === 'start'){
             initial.hide();
             input.show();
             gameStarted = !gameStarted;
-        }// end if sta
-        // Else if button clicked id is equal to startNewGame run this
-        else if ($(this).attr('id') === 'startNewGame'){
+        }else if ($(this).attr('id') === 'startNewGame'){
             setup();
             input.show();
             gameCount++;
             player1Turn = !player1Turn;
-        }// end else if sta
-        else {
+        }else {
             createGameBoard();
         }// end else sta
         createScoreBoard(gameCount, player1, player2, guessBank);
@@ -185,8 +184,7 @@ $(function(){
     // Add onclick func to div that is dynamic created
     $(document).on('click', '.alphabet', (function(){
         checkUserGuess($('p', this).text(), $(this));
-        $(this).removeClass('alphabet');
-        $(this).addClass('clicked');
+        $(this).removeClass('alphabet').addClass('clicked');
         createScoreBoard(gameCount, player1, player2, guessBank);
         if ((guessBank === 0) || (correctBank === inputWord.length)){
             checkEndGame(guessBank);

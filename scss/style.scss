@@ -3,48 +3,8 @@
   src: url('../font/Walk-Around-the-Block.ttf');
 }
 
-$border-color: #ccc;
-$font-title: Title Font, Arial, sans;
-$font-family: Amatic SC, cursive;
-$center-text: center;
-$btn-bg: rgba(117, 185, 190, 1);
-$btn-font-clr: #fff;
-$bg-color: #f19c79;
-$section-bg-color: #f5fbef;
-$bg-img: url('../img/bg-img.jpg');
-
-@mixin dimensions($width, $height:null) {
-  width: $width;
-  height: $height;
-}
-
-@mixin font($font-size, $font-family:null, $letter-spacing:null) {
-  font-size: $font-size;
-  font-family: $font-family;
-  letter-spacing: $letter-spacing;
-}
-
-@mixin flexbox($display, $flex-flow:null, $justify-content:null) {
-  display: $display;
-  flex-flow: $flex-flow;
-  justify-content: $justify-content;
-}
-
-@mixin hover($background-color, $box-shadow, $color) {
-  background-color: $background-color;
-  box-shadow: $box-shadow;
-  color: $color;
-}
-
-@mixin input-btn($border, $border-radius, $width, $cursor:null, $background-color:null, $color:null) {
-  border: $border;
-  border-radius: $border-radius;
-  width: $width;
-  cursor: $cursor;
-  background-color: $background-color;
-  color: $color;
-  @include font(20px, $font-family, 1px);
-}
+@import 'variables';
+@import 'mixins';
 
 html {
   @include dimensions(100%, 100%);
@@ -75,7 +35,7 @@ h3 {
 }
 
 input {
-  @include input-btn(1px solid $border-color, 4px, 25%);
+  @include input-btn(1px solid $border-color, 4px, 30%);
   box-sizing: border-box;
   margin: 8px;
   text-align: $center-text;
@@ -102,7 +62,7 @@ main {
       @include flexbox(flex, column, center);
       @include dimensions(100%, 47.5%);
       align-items: center;
-      background-color: rgba(255, 255, 255, 0.30);
+      background-color: $section-bg-color;
       border-radius: 5px;
     }
 
@@ -130,14 +90,18 @@ div {
 }
 
 #scoreboard {
+  @include dimensions(75%);
+  @include hover($btn-font-clr, inset 0 0 10px $btn-bg, $btn-bg);
   @include flexbox(flex, row, center);
   align-items: center;
   font-size: 22px;
-  margin: 10px 0;
+  padding: 10px 0;
+  border-radius: 4px;
+  margin: 0 auto;
 
   > p {
     margin: 0 10px;
-    padding: 2.5px;
+    padding: 0 5px;
   }
 }
 
@@ -154,7 +118,7 @@ div {
   margin: 2.5px;
 
   &:hover {
-    @include hover($btn-font-clr, inset 0px 0px 10px 0px $btn-bg, $btn-bg);
+    @include hover($btn-font-clr, inset 0 0 10px 0 $btn-bg, $btn-bg);
   }
 
   p {
@@ -181,7 +145,7 @@ div {
 
 .dash {
   @include dimensions(40px, 2px);
-  background-color: black;
+  background-color: #000;
   border-radius: 5px;
 }
 
@@ -202,14 +166,13 @@ footer {
 }
 
 #hangman {
+  background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
 
   @media screen and (max-width: 600px) {
   }
 }
-
 
 .clicked {
   @extend .alphabet;
@@ -217,11 +180,9 @@ footer {
 }
 
 .player1 {
-  @include hover($btn-font-clr, inset 0 0 10px red, red);
-  padding: 2.5px;
+  @include player($executioner-color, $executioner-color);
 }
 
 .player2 {
-  @include hover($btn-font-clr, inset 0 0 10px blue, blue);
-  padding: 0 5px;
+  @include player($hangee-color, $hangee-color) ;
 }
