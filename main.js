@@ -156,7 +156,6 @@ $(function(){
         $('button').eq(0).prop('id', 'startNewGame');
         $('.instructions').eq(1).text('');
         initial.show();
-        console.log("Inside checkEndGame", player1Turn)
     }//end checkEndGame func
 
     // Set up the game board
