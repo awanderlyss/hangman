@@ -46,14 +46,16 @@ $bg-img: url('../img/bg-img.jpg');
   @include font(20px, $font-family, 1px);
 }
 
+html {
+  @include dimensions(100%, 100%);
+}
 
-html,
 body {
   @include font(20px, $font-family, 1px);
   @include flexbox(flex, column);
-  @include dimensions(100%, 100%);
+  @include dimensions(90%, 100%);
   background-image: $bg-img;
-  margin: 0;
+  margin: 0 auto;
   text-align: $center-text;
 }
 
@@ -63,12 +65,13 @@ header {
 
 h1 {
   font-family: $font-title;
-  margin: 10px 0 0 0;
   font-size: 75px;
+  margin: 10px 0 0;
 }
 
 h3 {
-  margin: 0;
+  font-size: 30px;
+  margin: 0 10px;
 }
 
 input {
@@ -88,13 +91,12 @@ button {
 }
 
 main {
-  @include dimensions(100%, 100%);
+  @include dimensions(100%);
   @include flexbox(flex, row);
   flex: 1 1 auto;
-  padding: 0 15px;
 
   > section {
-    @include dimensions(50%, 100%);
+    @include dimensions(50%);
 
     > section {
       @include flexbox(flex, column, center);
@@ -103,9 +105,15 @@ main {
       background-color: rgba(255, 255, 255, 0.30);
       border-radius: 5px;
     }
+
+    @media screen and (max-width: 600px) {
+      @include dimensions(100%);
+    }
   }
 
-  @media screen and (max-width: )
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 }
 
 p {
@@ -113,12 +121,24 @@ p {
 }
 
 span {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
 }
 
 div {
   @include dimensions(100%);
+}
+
+#scoreboard {
+  @include flexbox(flex, row, center);
+  align-items: center;
+  font-size: 22px;
+  margin: 10px 0;
+
+  > p {
+    margin: 0 10px;
+    padding: 2.5px;
+  }
 }
 
 #alphabet {
@@ -155,7 +175,7 @@ div {
 }
 
 .letter {
-  font-size: 50px;
+  font-size: 60px;
   margin: 0;
 }
 
@@ -167,9 +187,8 @@ div {
 
 .instructions {
   @include dimensions(100%);
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 10px;
-  padding: 0 10px;
 }
 
 footer {
@@ -182,12 +201,27 @@ footer {
   }
 }
 
-img {
-  margin: 65px 0;
-  padding: 0 10px;
+#hangman {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  @media screen and (max-width: 600px) {
+  }
 }
+
 
 .clicked {
   @extend .alphabet;
   @include hover($btn-font-clr, inset 0 0 10px $btn-bg, $btn-bg);
+}
+
+.player1 {
+  @include hover($btn-font-clr, inset 0 0 10px red, red);
+  padding: 2.5px;
+}
+
+.player2 {
+  @include hover($btn-font-clr, inset 0 0 10px blue, blue);
+  padding: 0 5px;
 }

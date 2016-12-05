@@ -2,6 +2,9 @@
 $(function(){
     // Declare variables
     let inputWord;
+    let player1 = 0;
+    let player2 = 0;
+    let gameCount = 0;
     let alphabet = $('#alphabet');
     let scoreboard = $('#scoreboard');
     let initial = $('#initial');
@@ -10,14 +13,15 @@ $(function(){
     let inputField = $('input[name=word]');
     let wordField = $('#wordField');
     let gameStarted = false;
-    let gameImgs = ['<img src="img/player-one-win.png">',
-        '<img src="img/img5.png">',
-        '<img src="img/img4.png">',
-        '<img src="img/img3.png">',
-        '<img src="img/img2.png">',
-        '<img src="img/img1.png">',
-        '<img src="img/start.png">',
-        '<img src="img/player-two-win.png">'];
+    let player1Turn = false;
+    let gameImgs = ['img/player-one-win.png',
+        'img/img5.png',
+        'img/img4.png',
+        'img/img3.png',
+        'img/img2.png',
+        'img/img1.png',
+        'img/start.png',
+        'img/player-two-win.png'];
 
     function setup(){
         if(gameStarted){
@@ -33,7 +37,7 @@ $(function(){
         }
         guessBank = 6;
         correctBank = 0;
-        hangman.html(gameImgs[6]);
+        hangman.css('background-image', `url(${gameImgs[6]})`);
         wordField.hide();
         alphabet.hide();
     }
@@ -94,6 +98,23 @@ $(function(){
         }
     }// end createGameBoard func
 
+    //Create "updating" scoreboard
+    function createScoreBoard(gameCount, player1, player2, guessBank){
+      scoreboard.find('p').remove();
+      scoreboard.append(`<p>Games Played: ${gameCount}</p>`);
+      scoreboard.append(`<p>Player 1 Score: ${player1}</p>`);
+      scoreboard.append(`<p>Player 2 Score: ${player2}</p>`);
+      scoreboard.append(`<p>Guess Left: ${guessBank}</p>`);
+      if (gameCount % 2){
+        scoreboard.find('p').eq(1).addClass('player2');
+        scoreboard.find('p').eq(2).addClass('player1');
+      }
+      else {
+        scoreboard.find('p').eq(1).addClass('player1');
+        scoreboard.find('p').eq(2).addClass('player2');
+      }
+    }
+
     // Check userGuess against inputWord arr
     function checkUserGuess(letterPicked, divClicked){
         if(inputWord.indexOf(letterPicked)!== -1){
@@ -105,24 +126,37 @@ $(function(){
         }// if sta
         else {
             guessBank--;
-            hangman.html(gameImgs[guessBank]);
+            hangman.css('background-image', 'none');
+            hangman.css('background-image', `url(${gameImgs[guessBank]})`);
         }//end else sta
     }// end checkUserGuess func
 
+    // Changes the play score based on the number of games played
+    function reverseScore(player1Turn){
+        if (player1Turn){
+          player1 += 100;
+        }
+        else {
+          player2 +=100;
+        }
+    }
     //Check to see if the game is over, declare a winner
     function checkEndGame(guessBank) {
         if (guessBank === 0){
-            $('.instructions').eq(0).text('Player 1 has defeated Player 2!');
+            $('.instructions').eq(0).text('Player 1 has defeated Player 2! Switch roles, and play again?');
             $('.letter').show();
+            reverseScore(!player1Turn);
         }// end if sta
         else {
-            $('.instructions').eq(0).text('Player 2 has defeated Player 1!');
-            hangman.html(gameImgs[7]);
+            $('.instructions').eq(0).text('Player 2 has defeated Player 1! Switch roles, and play again?');
+            hangman.css('background-image', `url(${gameImgs[7]})`);
+            reverseScore(player1Turn);
         }// end else if sta
         alphabet.html('');
         $('button').eq(0).prop('id', 'startNewGame');
         $('.instructions').eq(1).text('');
         initial.show();
+        console.log("Inside checkEndGame", player1Turn)
     }//end checkEndGame func
 
     // Set up the game board
@@ -140,18 +174,21 @@ $(function(){
         else if ($(this).attr('id') === 'startNewGame'){
             setup();
             input.show();
+            gameCount++;
+            player1Turn = !player1Turn;
         }// end else if sta
         else {
             createGameBoard();
         }// end else sta
+        createScoreBoard(gameCount, player1, player2, guessBank);
     });// end -> func, onclick
 
     // Add onclick func to div that is dynamic created
     $(document).on('click', '.alphabet', (function(){
         checkUserGuess($('p', this).text(), $(this));
-        $(document).off('click', $(this));
         $(this).removeClass('alphabet');
         $(this).addClass('clicked');
+        createScoreBoard(gameCount, player1, player2, guessBank);
         if ((guessBank === 0) || (correctBank === inputWord.length)){
             checkEndGame(guessBank);
         }//end if st

@@ -1,17 +1,20 @@
 @font-face {
   font-family: 'Title Font';
   src: url("../font/Walk-Around-the-Block.ttf"); }
-html,
+html {
+  width: 100%;
+  height: 100%; }
+
 body {
   font-size: 20px;
   font-family: Amatic SC, cursive;
   letter-spacing: 1px;
   display: flex;
   flex-flow: column;
-  width: 100%;
+  width: 90%;
   height: 100%;
   background-image: url("../img/bg-img.jpg");
-  margin: 0;
+  margin: 0 auto;
   text-align: center; }
 
 header {
@@ -19,11 +22,12 @@ header {
 
 h1 {
   font-family: Title Font, Arial, sans;
-  margin: 10px 0 0 0;
-  font-size: 75px; }
+  font-size: 75px;
+  margin: 10px 0 0; }
 
 h3 {
-  margin: 0; }
+  font-size: 30px;
+  margin: 0 10px; }
 
 input {
   border: 1px solid #ccc;
@@ -54,14 +58,11 @@ button {
 
 main {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-flow: row;
-  flex: 1 1 auto;
-  padding: 0 15px; }
+  flex: 1 1 auto; }
   main > section {
-    width: 50%;
-    height: 100%; }
+    width: 50%; }
     main > section > section {
       display: flex;
       flex-flow: column;
@@ -71,16 +72,33 @@ main {
       align-items: center;
       background-color: rgba(255, 255, 255, 0.3);
       border-radius: 5px; }
+    @media screen and (max-width: 600px) {
+      main > section {
+        width: 100%; } }
+  @media screen and (max-width: 600px) {
+    main {
+      flex-direction: column; } }
 
 p {
   margin: 0; }
 
 span {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold; }
 
 div {
   width: 100%; }
+
+#scoreboard {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  margin: 10px 0; }
+  #scoreboard > p {
+    margin: 0 10px;
+    padding: 2.5px; }
 
 #alphabet {
   display: flex;
@@ -127,7 +145,7 @@ div {
   margin: 5px; }
 
 .letter {
-  font-size: 50px;
+  font-size: 60px;
   margin: 0; }
 
 .dash {
@@ -138,9 +156,8 @@ div {
 
 .instructions {
   width: 100%;
-  font-size: 24px;
-  margin-bottom: 10px;
-  padding: 0 10px; }
+  font-size: 22px;
+  margin-bottom: 10px; }
 
 footer {
   display: flex;
@@ -150,13 +167,26 @@ footer {
     align-self: center;
     font-size: 16px; }
 
-img {
-  margin: 65px 0;
-  padding: 0 10px; }
+#hangman {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; }
 
 .clicked {
   background-color: #fff;
   box-shadow: inset 0 0 10px #75b9be;
   color: #75b9be; }
+
+.player1 {
+  background-color: #fff;
+  box-shadow: inset 0 0 10px red;
+  color: red;
+  padding: 2.5px; }
+
+.player2 {
+  background-color: #fff;
+  box-shadow: inset 0 0 10px blue;
+  color: blue;
+  padding: 0 5px; }
 
 /*# sourceMappingURL=style.css.map */
