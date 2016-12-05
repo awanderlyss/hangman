@@ -1,22 +1,27 @@
 # Hangman
 
-Hangman is a guessing game for two or more players.
+  Hangman is a guessing game for two or more players.
 
 # Start Game Menu
 
 <img src="https://cloud.githubusercontent.com/assets/22528201/20892743/5c668adc-badd-11e6-9154-f7e73b59a1d3.png" width="90%"></img>
 
 ## Player 1
-    - Will be the executioner. (marked red on the scoreboard)
+    Will be the executioner. (marked red on the scoreboard)
 
 ## Player 2
-    - Will be the hangee. (marked blue on the scoreboard)
+    Will be the hangee. (marked blue on the scoreboard)
 
 
 # Executioner Screen
 
 <img src="https://cloud.githubusercontent.com/assets/22528201/20892747/5f1f403e-badd-11e6-968e-342abba40ef6.png" width="90%"></img>
 
+  As an Excutioner, you should be able to input and submit a valid* word.
+
+    *Valid Word - length greater than three(3) and contains so special characters
+    like: " " , . ! @ #*
+    
 # Hangee Screen
 
 <img src="https://cloud.githubusercontent.com/assets/22528201/20892751/63528120-badd-11e6-9fd6-50f39e838295.png" width="90%"></img>
