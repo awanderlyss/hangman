@@ -47,7 +47,7 @@ $(function(){
         alphabet.hide();
     }
 
-    // Validate the user word
+    // Validate the user word -- stackoverflow by Stefano Dalpiaz
     function validate(inputWord) {
       if (inputWord.length <=3) {
           alert("Please enter a word longer than 3 letters!");
